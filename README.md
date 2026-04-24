@@ -37,6 +37,3 @@ Key queries included:
 1. Load CSV files into Power BI
 2. Recreate relationships
 3. Open `.pbix` file to view the dashboard
-
-## 📷 Dashboard Preview
-<img width="1315" height="736" alt="Screenshot 2026-04-24 181207" src="https://github.com/user-attachments/assets/9c20245e-0e16-4dd8-8b52-e7d1c92b1217" />
