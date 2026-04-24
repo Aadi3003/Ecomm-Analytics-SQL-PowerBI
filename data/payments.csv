@@ -1,0 +1,6 @@
+payment_id,order_id,payment_method,payment_status
+1,1001,UPI,success
+2,1002,Card,success
+3,1003,UPI,failed
+4,1004,COD,success
+5,1005,UPI,pending

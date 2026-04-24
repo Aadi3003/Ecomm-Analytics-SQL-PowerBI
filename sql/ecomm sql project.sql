@@ -1,0 +1,97 @@
+CREATE DATABASE ecommerce_db;
+
+USE ecommerce_db;
+
+CREATE TABLE users (
+    user_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    city VARCHAR(50),
+    signup_date DATE
+);
+
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100),
+    category VARCHAR(50),
+    price DECIMAL(10,2)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    order_date DATE,
+    total_amount DECIMAL(10,2),
+    status VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE order_items (
+    order_item_id INT PRIMARY KEY,
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+CREATE TABLE payments (
+    payment_id INT PRIMARY KEY,
+    order_id INT,
+    payment_method VARCHAR(20),
+    payment_status VARCHAR(20),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+);
+
+INSERT INTO users VALUES
+(1, 'Aaditya', 'Delhi', '2024-01-10'),
+(2, 'Rahul', 'Mumbai', '2024-02-15'),
+(3, 'Sneha', 'Bangalore', '2024-03-05'),
+(4, 'Priya', 'Delhi', '2024-03-20'),
+(5, 'Arjun', 'Pune', '2024-04-01');
+
+INSERT INTO products VALUES
+(101, 'iPhone 14', 'Electronics', 70000),
+(102, 'Running Shoes', 'Fashion', 3000),
+(103, 'Bluetooth Speaker', 'Electronics', 2000),
+(104, 'T-shirt', 'Fashion', 800),
+(105, 'Whey Protein', 'Health', 2500);
+
+INSERT INTO orders VALUES
+(1001, 1, '2024-04-10', 73000, 'delivered'),
+(1002, 2, '2024-04-11', 3000, 'delivered'),
+(1003, 3, '2024-04-12', 2000, 'cancelled'),
+(1004, 1, '2024-04-13', 800, 'delivered'),
+(1005, 4, '2024-04-14', 2500, 'placed');
+
+INSERT INTO order_items VALUES
+(1, 1001, 101, 1),
+(2, 1001, 103, 1),
+(3, 1002, 102, 1),
+(4, 1003, 103, 1),
+(5, 1004, 104, 1),
+(6, 1005, 105, 1);
+
+INSERT INTO payments VALUES
+(1, 1001, 'UPI', 'success'),
+(2, 1002, 'Card', 'success'),
+(3, 1003, 'UPI', 'failed'),
+(4, 1004, 'COD', 'success'),
+(5, 1005, 'UPI', 'pending');
+
+SELECT * FROM orders;
+
+SELECT SUM(total_amount) AS total_revenue
+FROM orders
+WHERE status = 'delivered';
+
+SELECT 
+    COUNT(*) AS total_orders,
+    SUM(CASE WHEN status = 'delivered' THEN 1 ELSE 0 END) AS delivered_orders
+FROM orders;
+
+SELECT 
+    user_id,
+    SUM(total_amount) AS total_spent
+FROM orders
+WHERE status = 'delivered'
+GROUP BY user_id;
