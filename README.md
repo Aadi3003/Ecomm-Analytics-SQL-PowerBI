@@ -17,6 +17,13 @@ This project analyzes e-commerce transaction data to derive insights on revenue,
 * SQL (MySQL)
 * Power BI (Data modeling, DAX, Dashboarding)
 
+## 🧮 SQL Analysis
+Key queries included:
+- Revenue calculation with business constraints (delivered orders only)
+- Category-wise revenue using multi-table joins
+- Top customers based on total spending
+- Payment success rate calculation
+
 ## 📁 Project Structure
 
 * `data/` → Raw datasets (CSV)
